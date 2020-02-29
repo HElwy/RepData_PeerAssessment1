@@ -76,6 +76,8 @@ Total number of missing values in the dataset is 2304
 
 ### Creating a new dataset that is equal to the original dataset but with the missing data filled in
 
+I think it makes sense to fill in the missing values with the average of the same interval on other filled days
+
 
 ```r
 filledActivity <- activity
@@ -138,7 +140,7 @@ weekFactor <- function(x){
 activity$week <- as.factor(mapply(weekFactor, activity$date))
 ```
 
-### Making a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis)
+### Making a time series plots of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis)
 
 
 ```r
@@ -148,9 +150,9 @@ weekendActivity <- filter(activity, week == "Weekend")
 avgStepsWeekend <- weekendActivity %>% group_by(interval) %>% summarise(average = mean(steps, na.rm = TRUE))
 par(mfrow=c(2,1))
 plot(x = avgStepsWeekday$interval, y = avgStepsWeekday$average, type = "l",
-     xlab="Intervals", ylab = "Steps")
+     xlab="Intervals", ylab = "Steps", main = "Weekday")
 plot(x = avgStepsWeekend$interval, y = avgStepsWeekend$average, type = "l",
-     xlab="Intervals", ylab = "Steps")
+     xlab="Intervals", ylab = "Steps", main = "Weekend")
 ```
 
 ![](instructions_fig/week_activity-1.png)<!-- -->
