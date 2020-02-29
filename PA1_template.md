@@ -25,7 +25,7 @@ stepsPerDay <- activity %>% group_by(date) %>% summarise(steps = sum(steps, na.r
 barplot(stepsPerDay$steps, names.arg = stepsPerDay$date, cex.names = 0.7, las = 2)
 ```
 
-![](instructions_fig/steps histogram-1.png)<!-- -->
+![](instructions_fig/steps_histogram-1.png)<!-- -->
 
 ### Calculating and reporting the mean and median of the total number of steps taken per day
 
@@ -49,7 +49,7 @@ plot(x = avgStepsPerInterval$interval, y = avgStepsPerInterval$average, type = "
      xlab="Intervals", ylab = "Average number of steps taken averaged across all days")
 ```
 
-![](instructions_fig/average activity-1.png)<!-- -->
+![](instructions_fig/average_activity-1.png)<!-- -->
 
 ### Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -99,7 +99,7 @@ filledStepsPerDay <- filledActivity %>% group_by(date) %>% summarise(steps = sum
 barplot(filledStepsPerDay$steps, names.arg = filledStepsPerDay$date, cex.names = 0.7, las = 2)
 ```
 
-![](instructions_fig/filled steps histogram-1.png)<!-- -->
+![](instructions_fig/filled_steps_histogram-1.png)<!-- -->
 
 ### Calculating and reporting the mean and median total number of steps taken per day
 
@@ -152,4 +152,4 @@ lines(x = avgStepsWeekend$interval, y = avgStepsWeekend$average, type = "l", col
 legend("topleft", legend = c("Weekday", "Weekend"), col=c("blue", "red"), lty=1, cex=1)
 ```
 
-![](instructions_fig/week activity-1.png)<!-- -->
+![](instructions_fig/week_activity-1.png)<!-- -->
