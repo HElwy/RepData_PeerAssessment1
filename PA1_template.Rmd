@@ -21,14 +21,14 @@ activity <- read.csv("activity.csv")
 
 ### Making a histogram of the total number of steps taken each day
 
-```{r steps histogram, fig.width=10}
+```{r steps_histogram, fig.width=10}
 stepsPerDay <- activity %>% group_by(date) %>% summarise(steps = sum(steps, na.rm = TRUE))
 barplot(stepsPerDay$steps, names.arg = stepsPerDay$date, cex.names = 0.7, las = 2)
 ```
 
 ### Calculating and reporting the mean and median of the total number of steps taken per day
 
-```{r steps mean and median}
+```{r steps_mean_and_median}
 meanSteps <- round(mean(stepsPerDay$steps, na.rm = TRUE), 2)
 medianSteps <- median(stepsPerDay$steps, na.rm = TRUE)
 ```
@@ -40,7 +40,7 @@ The median of the total number of steps taken per day is `r medianSteps`
 
 ### Making a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-```{r average activity, fig.width=10}
+```{r average_activity, fig.width=10}
 avgStepsPerInterval <- activity %>% group_by(interval) %>% summarise(average = mean(steps, na.rm = TRUE))
 plot(x = avgStepsPerInterval$interval, y = avgStepsPerInterval$average, type = "l", 
      xlab="Intervals", ylab = "Average number of steps taken averaged across all days")
@@ -48,7 +48,7 @@ plot(x = avgStepsPerInterval$interval, y = avgStepsPerInterval$average, type = "
 
 ### Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
-```{r interval with max steps}
+```{r interval_with_max_steps}
 maximumStepsInInterval <- max(avgStepsPerInterval$average, na.rm = TRUE)
 intervalWithMaxSteps <- avgStepsPerInterval$interval[avgStepsPerInterval$average == maximumStepsInInterval]
 ```
@@ -61,7 +61,7 @@ which on average has `r round(maximumStepsInInterval, 2)` steps
 
 ### Calculating and reporting the total number of missing values in the dataset
 
-```{r missing values}
+```{r missing_values}
 missingValues <- sum(is.na(activity$steps))
 ```
 
@@ -69,7 +69,7 @@ Total number of missing values in the dataset is `r missingValues`
 
 ### Creating a new dataset that is equal to the original dataset but with the missing data filled in
 
-```{r filling missing values}
+```{r filling_missing_values}
 filledActivity <- activity
 
 fillMissing <- function(x, y){
@@ -85,14 +85,14 @@ filledActivity$steps <- as.numeric(mapply(fillMissing, filledActivity$steps, fil
 
 ### Making a histogram of the total number of steps taken each day
 
-```{r filled steps histogram, fig.width=10}
+```{r filled_steps_histogram, fig.width=10}
 filledStepsPerDay <- filledActivity %>% group_by(date) %>% summarise(steps = sum(steps))
 barplot(filledStepsPerDay$steps, names.arg = filledStepsPerDay$date, cex.names = 0.7, las = 2)
 ```
 
 ### Calculating and reporting the mean and median total number of steps taken per day
 
-```{r filled steps mean and median}
+```{r filled_steps_mean_and_median}
 filledMeanSteps <- as.integer(mean(filledStepsPerDay$steps))
 filledMedianSteps <- as.integer(median(filledStepsPerDay$steps))
 ```
@@ -113,7 +113,7 @@ to skew towards the same number!
 
 ### Creating a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day
 
-```{r week factor}
+```{r week_factor}
 weekFactor <- function(x){
   if(weekdays(as.Date(x)) %in% c("Saturday", "Sunday")){
     return("Weekend")
@@ -127,7 +127,7 @@ activity$week <- as.factor(mapply(weekFactor, activity$date))
 
 ### Making a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis)
 
-```{r week activity, fig.width=10}
+```{r week_activity, fig.width=10}
 weekdayActivity <- filter(activity, week == "Weekday")
 avgStepsWeekday <- weekdayActivity %>% group_by(interval) %>% summarise(average = mean(steps, na.rm = TRUE))
 weekendActivity <- filter(activity, week == "Weekend")
