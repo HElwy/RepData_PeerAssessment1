@@ -146,10 +146,11 @@ weekdayActivity <- filter(activity, week == "Weekday")
 avgStepsWeekday <- weekdayActivity %>% group_by(interval) %>% summarise(average = mean(steps, na.rm = TRUE))
 weekendActivity <- filter(activity, week == "Weekend")
 avgStepsWeekend <- weekendActivity %>% group_by(interval) %>% summarise(average = mean(steps, na.rm = TRUE))
-plot(x = avgStepsWeekday$interval, y = avgStepsWeekday$average, type = "l", col = "blue",
-     xlab="Intervals", ylab = "Average number of steps taken")
-lines(x = avgStepsWeekend$interval, y = avgStepsWeekend$average, type = "l", col = "red")
-legend("topleft", legend = c("Weekday", "Weekend"), col=c("blue", "red"), lty=1, cex=1)
+par(mfrow=c(2,1))
+plot(x = avgStepsWeekday$interval, y = avgStepsWeekday$average, type = "l",
+     xlab="Intervals", ylab = "Steps")
+plot(x = avgStepsWeekend$interval, y = avgStepsWeekend$average, type = "l",
+     xlab="Intervals", ylab = "Steps")
 ```
 
 ![](instructions_fig/week_activity-1.png)<!-- -->
