@@ -23,7 +23,7 @@ activity <- read.csv("activity.csv")
 
 ```{r steps_histogram, fig.width=10}
 stepsPerDay <- activity %>% group_by(date) %>% summarise(steps = sum(steps, na.rm = TRUE))
-barplot(stepsPerDay$steps, names.arg = stepsPerDay$date, cex.names = 0.7, las = 2)
+hist(stepsPerDay$steps, main = "Total number of steps taken each day", xlab = "Steps")
 ```
 
 ### Calculating and reporting the mean and median of the total number of steps taken per day
@@ -89,7 +89,7 @@ filledActivity$steps <- as.numeric(mapply(fillMissing, filledActivity$steps, fil
 
 ```{r filled_steps_histogram, fig.width=10}
 filledStepsPerDay <- filledActivity %>% group_by(date) %>% summarise(steps = sum(steps))
-barplot(filledStepsPerDay$steps, names.arg = filledStepsPerDay$date, cex.names = 0.7, las = 2)
+hist(filledStepsPerDay$steps, main = "Total number of steps taken each day", xlab = "Steps")
 ```
 
 ### Calculating and reporting the mean and median total number of steps taken per day
@@ -113,7 +113,7 @@ to skew towards the same number!
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-### Creating a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day
+### Creating a new factor variable in the dataset with two levels - "weekday" and "weekend"" indicating whether a given date is a weekday or weekend day
 
 ```{r week_factor}
 weekFactor <- function(x){
